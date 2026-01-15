@@ -13,7 +13,9 @@
         rel="stylesheet">
 
     <!-- CSS -->
+    <!-- CSS -->
     <link rel="stylesheet" href="./static/css/variables.css">
+    <link rel="stylesheet" href="./static/css/layout.css">
     <link rel="stylesheet" href="./static/css/style.css">
 </head>
 
@@ -28,19 +30,26 @@
 
         <main class="container">
             <div id="mode-selection" class="mode-selection">
-                <h2>学習モードを選択</h2>
-                <div class="mode-cards">
-                    <button class="mode-card" onclick="startMode('result')">
-                        <div class="mode-icon">📝</div>
+                <section class="hero" style="margin-bottom: 24px;">
+                    <h2>学習モードを選択</h2>
+                    <p>練習したいモードを選んでください</p>
+                </section>
+
+                <section class="menu">
+                    <article class="menu-card">
+                        <div class="mode-icon" style="font-size: 2rem; margin-bottom: 12px;">📝</div>
                         <h3>一問一答モード</h3>
                         <p>コードの実行結果を予測する基本練習</p>
-                    </button>
-                    <button class="mode-card" onclick="startMode('step-trace')">
-                        <div class="mode-icon">👣</div>
+                        <button class="next-btn" onclick="startMode('result')">開始する</button>
+                    </article>
+
+                    <article class="menu-card">
+                        <div class="mode-icon" style="font-size: 2rem; margin-bottom: 12px;">👣</div>
                         <h3>ステップトレース</h3>
                         <p>1行ずつ実行を追跡する応用練習</p>
-                    </button>
-                </div>
+                        <button class="next-btn" onclick="startMode('step-trace')">開始する</button>
+                    </article>
+                </section>
             </div>
 
             <div id="quiz-container" style="display: none;">
