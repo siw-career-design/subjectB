@@ -8,32 +8,41 @@ let questions = [];    // Filtered for current mode
 let currentQuestionIndex = 0;
 let currentStepIndex = 0; // For step-trace mode
 
-// Fetch questions from API
-async function fetchQuestions() {
+// Fetch questions based on mode
+async function fetchQuestions(url) {
     try {
-        const response = await fetch('./data/questions.json');
+        const response = await fetch(url);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        allQuestions = await response.json();
-        console.log('Loaded questions:', allQuestions); // Debug log
+        return await response.json();
     } catch (error) {
         console.error('Failed to fetch questions:', error);
         quizContainer.style.display = 'block';
         quizContainer.innerHTML = `<div class="error">問題データの読み込みに失敗しました。<br>${error.message}</div>`;
+        return null;
     }
 }
 
 // Start specific mode
-window.startMode = function (modeType) {
-    // Filter questions based on mode
-    // 'result' mode includes questions WITHOUT type or type='result'
-    // 'step-trace' mode includes questions with type='step-trace'
+window.startMode = async function (modeType) {
+    let jsonFile = '';
+
     if (modeType === 'result') {
-        questions = allQuestions.filter(q => !q.type || q.type === 'result');
+        jsonFile = './data/questions_qa.json';
     } else if (modeType === 'step-trace') {
-        questions = allQuestions.filter(q => q.type === 'step-trace');
+        jsonFile = './data/questions_trace.json';
     }
+
+    if (!jsonFile) return;
+
+    // Show loading or similar if needed? For now just fetch.
+    const fetchedData = await fetchQuestions(jsonFile);
+    if (!fetchedData) return;
+
+    questions = fetchedData;
+    // Note: No need to filter by type if files are strictly separated,
+    // but keeping a check might be safe. For now assuming files are correct.
 
     if (questions.length === 0) {
         alert('このモードの問題データがまだありません。');
@@ -288,5 +297,5 @@ function escapeHtml(text) {
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
-    fetchQuestions();
+    // No initial fetch needed
 });
