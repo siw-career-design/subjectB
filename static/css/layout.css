@@ -125,3 +125,38 @@ main {
     background: var(--accent-hover);
 }
 
+/*========================
+music list
+========================*/
+.music-list {
+    display: flex;
+    justify-content: center; /* 横中央 */
+    margin-top: 40px;
+}
+
+/* リスト自体の見た目 */
+.music-list ul {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+}
+
+/* 各楽曲 */
+.music-list li {
+    margin-bottom: 16px;
+}
+
+/* 再生ボタン */
+.play-btn {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 16px;
+    cursor: pointer;
+}
+.music-area {
+    display: flex;
+    max-width: 500;
+    flex-direction: column;
+    align-items: center; /* 全体中央 */
+    margin-top: 40px;
+}
