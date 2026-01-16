@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>科目B トレース練習</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS -->
+    <!-- CSS -->
+    <link rel="stylesheet" href="./static/css/variables.css">
+    <link rel="stylesheet" href="./static/css/layout.css">
+    <link rel="stylesheet" href="./static/css/style.css">
+</head>
+
+<body>
+    <div id="app">
+        <!-- Reactのような動的なレンダリングをJSで行うためのコンテナ -->
+        <header class="app-header">
+            <div class="container">
+                <h1>FE 科目B トレース練習</h1>
+            </div>
+        </header>
+
+        <main class="container">
+            <div id="mode-selection" class="mode-selection">
+                <section class="hero" style="margin-bottom: 24px;">
+                    <h2>学習モードを選択</h2>
+                    <p>練習したいモードを選んでください</p>
+                </section>
+
+                <section class="menu">
+                    <article class="menu-card">
+                        <div class="mode-icon" style="font-size: 2rem; margin-bottom: 12px;">📝</div>
+                        <h3>一問一答モード</h3>
+                        <p>コードの実行結果を予測する基本練習</p>
+                        <button class="next-btn" onclick="startMode('result')">開始する</button>
+                    </article>
+
+                    <article class="menu-card">
+                        <div class="mode-icon" style="font-size: 2rem; margin-bottom: 12px;">👣</div>
+                        <h3>ステップトレース</h3>
+                        <p>1行ずつ実行を追跡する応用練習</p>
+                        <button class="next-btn" onclick="startMode('step-trace')">開始する</button>
+                    </article>
+                </section>
+            </div>
+
+            <div id="quiz-container" style="display: none;">
+                <div class="loading">Loading...</div>
+            </div>
+        </main>
+    </div>
+
+    <!-- JS -->
+    <script type="module" src="./static/js/app.js"></script>
+</body>
+
+</html>
