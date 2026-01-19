@@ -14,11 +14,11 @@ const songs = [
     },
     {
         title: "ロック-男性vo-セキュリティ",
-        file: "./static/music/ロック-男性vo-セキュリティ.mp3"
+        file: "./static/music/ロック-男性vo.-セキュリティ.mp3"
     },
     {
         title: "ロック-男性vo-ネットワーク",
-        file: "./static/music/ロック-男性vo-ネットワーク.mp3"
+        file: "./static/music/ロック-男性vo.-ネットワーク.mp3"
     },
     {
         title: "基本情報シャウト！",
