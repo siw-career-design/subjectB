@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,41 +8,45 @@
 
     <link rel="stylesheet" href="./static/css/variables.css">
     <link rel="stylesheet" href="./static/css/layout.css" />
+    <link rel="stylesheet" href="./static/css/style.css" />
 </head>
 
 <body>
-<div id="app">
-    <!-- Header -->
-    <header class="app-header">
-        <div class="container">
-            <h1>FE 科目A 楽曲一覧</h1>
-        </div>
-    </header>
+    <div id="app">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="container" style="display: flex; gap: 16px; align-items: center;">
+                <a href="index.html" class="back-link"
+                    style="text-decoration: none; color: var(--text-secondary); font-weight: 500;">← Top</a>
+                <h1>FE 科目A 楽曲一覧</h1>
+            </div>
+        </header>
 
-    <!-- Main -->
-    <main class="container">
-        <section class="hero">
-            <h2>楽曲を選択</h2>
-        </section>
-
-        <!-- 楽曲一覧 -->
-        <section class="music-area">
-
-            <!-- プレイヤー -->
-            <section class="player">
-                <p id="nowPlaying">未再生</p>
-                <audio id="audioPlayer" controls></audio>
+        <!-- Main -->
+        <main class="container">
+            <section class="hero">
+                <h2>楽曲を選択</h2>
             </section>
 
-            <section class="music-list">
-                <ul id="musicList">
-                    <!-- JSで生成 -->
-                </ul>
-            </section>
-        </section>
-    </main>
-</div>
+            <!-- 楽曲一覧 -->
+            <section class="music-area">
 
-<script src="./static/js/subject_a.js"></script>
+                <!-- プレイヤー -->
+                <section class="player">
+                    <p id="nowPlaying">未再生</p>
+                    <audio id="audioPlayer" controls></audio>
+                </section>
+
+                <section class="music-list">
+                    <ul id="musicList">
+                        <!-- JSで生成 -->
+                    </ul>
+                </section>
+            </section>
+        </main>
+    </div>
+
+    <script src="./static/js/subject_a.js"></script>
 </body>
+
 </html>

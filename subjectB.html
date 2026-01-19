@@ -23,7 +23,12 @@
     <div id="app">
         <!-- Reactのような動的なレンダリングをJSで行うためのコンテナ -->
         <header class="app-header">
-            <div class="container">
+            <div class="container" style="display: flex; gap: 16px; align-items: center;">
+                <a href="index.html" id="back-to-top-link" class="back-link"
+                    style="text-decoration: none; color: var(--text-secondary); font-weight: 500;">← Top</a>
+                <button id="back-to-mode-link" onclick="exitMode()" class="back-link"
+                    style="display: none; background: none; border: none; cursor: pointer; color: var(--text-secondary); font-weight: 500; font-family: inherit; font-size: inherit; padding: 0;">←
+                    Mode Select</button>
                 <h1>FE 科目B トレース練習</h1>
             </div>
         </header>

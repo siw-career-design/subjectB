@@ -52,6 +52,11 @@ window.startMode = async function (modeType) {
     // Switch UI
     modeSelection.style.display = 'none';
     quizContainer.style.display = 'block';
+    // Toggle Header Back Links
+    const backToTop = document.getElementById('back-to-top-link');
+    const backToMode = document.getElementById('back-to-mode-link');
+    if (backToTop) backToTop.style.display = 'none';
+    if (backToMode) backToMode.style.display = 'block';
 
     // Reset and Render
     currentQuestionIndex = 0;
@@ -78,6 +83,17 @@ function renderQuestion() {
     } else {
         renderResultQuiz(question);
     }
+}
+
+// Exit Mode (Back to Selection)
+window.exitMode = function () {
+    quizContainer.style.display = 'none';
+    modeSelection.style.display = 'block';
+    // Toggle Header Back Links
+    const backToTop = document.getElementById('back-to-top-link');
+    const backToMode = document.getElementById('back-to-mode-link');
+    if (backToTop) backToTop.style.display = 'inline'; // or block/flex
+    if (backToMode) backToMode.style.display = 'none';
 }
 
 // Render Standard Result Quiz
