@@ -26,11 +26,11 @@ const songs = [
     },
     {
         title: "基本情報技術者試験ずんだーセキュリティ",
-        file: "./static/music/基本情報技術者試験ずんだーセキュリティ.mp3"
+        file: "./static/music/基本情報技術者試験ずんだーセキュリティ.wav"
     },
     {
         title: "基本情報技術者試験ずんだーネットワーク",
-        file: "./static/music/基本情報技術者試験ずんだーネットワーク.mp3"
+        file: "./static/music/基本情報技術者試験ずんだーネットワーク.wav"
     },
     {
         title: "経営戦略手法をテーマにした楽曲_戦略の酒場",
