@@ -46,13 +46,44 @@
 @media (min-width: 768px) {
     .quiz-card {
         grid-template-columns: 1fr 1fr;
-        /* PC: 2 Columns */
-        align-items: start;
+        /* align-items: start; <-- Removed to allow stretch (default) */
         height: calc(100vh - 100px);
-        /* Adjust based on header height */
         overflow: hidden;
-        /* Prevent body scroll if content fits */
+        /* Keep body clean */
     }
+
+    .question-section {
+        height: 100%;
+        overflow-y: auto;
+        /* Scroll inside this column */
+        padding-right: var(--space-md);
+        /* Space for scrollbar */
+    }
+
+    /* Prevent children from collapsing inside the flex container */
+    .question-section>* {
+        flex-shrink: 0;
+    }
+}
+
+/* Trace Table Container */
+.trace-table-container {
+    overflow-x: auto;
+    margin: var(--space-lg) 0;
+    border-radius: var(--radius-md);
+    background: var(--bg-surface);
+    border: 1px solid var(--glass-border);
+    width: 100%;
+}
+
+.trace-table {
+    width: 100%;
+    /* Back to 100% */
+    min-width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    table-layout: auto;
 }
 
 /* Left Column: Code Block */
@@ -68,8 +99,26 @@
     /* SP default */
 }
 
+/* Sticky Code Section for Puzzle Mode (Mobile) */
+.code-section.sticky-code {
+    position: sticky;
+    top: 80px;
+    /* Below header */
+    z-index: 50;
+    max-height: 250px;
+    /* Default adjustable height */
+    margin-bottom: var(--space-lg);
+}
+
 @media (min-width: 768px) {
     .code-section {
+        max-height: 100%;
+    }
+
+    /* On desktop, disable sticky and use normal layout */
+    .code-section.sticky-code {
+        position: relative;
+        top: auto;
         max-height: 100%;
     }
 }
@@ -107,6 +156,13 @@
 .control-btn:hover {
     background: var(--bg-secondary);
     color: var(--text-primary);
+}
+
+/* Hide height adjustment buttons on desktop */
+@media (min-width: 768px) {
+    .control-btn[onclick*="adjustCodeHeight"] {
+        display: none;
+    }
 }
 
 .code-content {
@@ -165,6 +221,13 @@
     overflow-y: auto;
     padding-right: var(--space-sm);
 }
+
+/* @media (min-width: 768px) {
+    .question-section {
+        overflow-y: auto;
+        max-height: calc(100vh - 120px);
+    }
+} */
 
 .question-title {
     font-size: 1.25rem;
@@ -281,5 +344,228 @@
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+/* ===== TRACE TABLE PUZZLE STYLES ===== */
+
+/* Container and Table styles moved to top specific media queries */
+
+.trace-table thead {
+    background: rgba(0, 0, 0, 0.3);
+    border-bottom: 2px solid var(--glass-border);
+}
+
+.trace-table th {
+    padding: var(--space-md);
+    text-align: center;
+    color: var(--text-secondary);
+    font-weight: 600;
+    border-right: 1px solid var(--glass-border);
+    white-space: nowrap;
+    /* Keep headers locally */
+    min-width: 60px;
+    /* Ensure minimum width */
+}
+
+.trace-table th:last-child {
+    border-right: none;
+    min-width: 150px;
+    /* Give more space to reason/explanation column */
+}
+
+.trace-table td {
+    padding: var(--space-sm);
+    text-align: center;
+    border-right: 1px solid var(--glass-border);
+    border-bottom: 1px solid var(--glass-border);
+    min-width: 60px;
+    /* Ensure minimum width */
+}
+
+.trace-table td:last-child {
+    border-right: none;
+    min-width: 150px;
+    /* Give more space to reason/explanation column */
+    text-align: left;
+    /* Align explanation text to left */
+}
+
+/* Trace Row States */
+.trace-row.completed {
+    background: rgba(16, 185, 129, 0.05);
+}
+
+.trace-row.current {
+    background: rgba(59, 130, 246, 0.1);
+    border-left: 3px solid var(--accent-primary);
+}
+
+/* Drop Zone */
+.drop-zone {
+    min-height: 50px;
+    min-width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed var(--glass-border);
+    border-radius: var(--radius-sm);
+    background: var(--bg-secondary);
+    transition: all 0.2s ease;
+    padding: var(--space-sm);
+    position: relative;
+}
+
+.drop-zone.drag-over {
+    border-color: var(--accent-primary);
+    background: rgba(59, 130, 246, 0.1);
+    transform: scale(1.05);
+}
+
+.drop-zone .placed-piece {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+/* Drop zone with piece placed */
+.drop-zone.filled {
+    background: rgba(59, 130, 246, 0.2);
+    border: 2px solid var(--accent-primary);
+    border-style: solid;
+}
+
+.drop-zone.correct {
+    background: rgba(16, 185, 129, 0.2);
+    border-color: var(--status-success);
+    border-style: solid;
+}
+
+.drop-zone.incorrect {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: var(--status-error);
+    border-style: solid;
+}
+
+.drop-zone .correct-hint {
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.75rem;
+    color: var(--status-success);
+    white-space: nowrap;
+    background: var(--bg-surface);
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--status-success);
+}
+
+/* Puzzle Pieces Container */
+.puzzle-pieces-container {
+    margin: var(--space-lg) 0;
+    padding: var(--space-lg);
+    background: var(--bg-surface);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+}
+
+.puzzle-pieces-container h3 {
+    margin: 0 0 var(--space-md) 0;
+    color: var(--text-secondary);
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.puzzle-pieces {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    min-height: 80px;
+    padding: var(--space-md);
+    background: var(--bg-secondary);
+    border-radius: var(--radius-sm);
+    border: 1px dashed var(--glass-border);
+    touch-action: none;
+    /* Prevent scroll on touch devices */
+}
+
+/* Puzzle Piece */
+.puzzle-piece {
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    color: white;
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-md);
+    cursor: grab;
+    user-select: none;
+    font-weight: 500;
+    font-family: var(--font-mono);
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    min-width: 60px;
+    text-align: center;
+    touch-action: none;
+    /* Prevent scroll on touch devices */
+}
+
+.puzzle-piece:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
+
+.puzzle-piece:active {
+    cursor: grabbing;
+}
+
+.puzzle-piece.dragging {
+    opacity: 0.5;
+    cursor: grabbing;
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+}
+
+.action-buttons .next-btn:disabled {
+    background: var(--bg-secondary);
+    color: var(--text-muted);
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+/* Badge for Puzzle Mode */
+.badge-type.puzzle {
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    color: white;
+    padding: 4px 12px;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: var(--space-sm);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .trace-table {
+        font-size: 0.8rem;
+    }
+
+    .trace-table th,
+    .trace-table td {
+        padding: var(--space-xs);
+    }
+
+    .drop-zone {
+        min-height: 40px;
+        min-width: 60px;
+    }
+
+    .puzzle-piece {
+        padding: var(--space-xs) var(--space-sm);
+        font-size: 0.85rem;
+        min-width: 50px;
     }
 }
