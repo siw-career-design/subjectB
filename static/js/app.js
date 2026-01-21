@@ -344,7 +344,12 @@ function renderTraceTablePuzzle(question) {
         <div class="quiz-card">
             <div class="code-section sticky-code" id="code-section-puzzle">
                 <div class="code-header">
-                    <span>Trace Table Puzzle</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <button onclick="toggleCodeSection()" class="control-btn" id="collapse-btn" title="折り畳み/展開">
+                            <span class="toggle-icon">▼</span>
+                        </button>
+                        <span>Trace Table Puzzle</span>
+                    </div>
                     <div class="code-controls">
                         <button onclick="adjustCodeHeight(-50)" class="control-btn" title="高さを縮小">H-</button>
                         <button onclick="adjustCodeHeight(50)" class="control-btn" title="高さを拡大">H+</button>
@@ -367,6 +372,20 @@ function renderTraceTablePuzzle(question) {
     `;
     updateTraceTableUI();
 }
+
+// Toggle Code Section Visibility (Mobile)
+window.toggleCodeSection = function () {
+    const codeSection = document.getElementById('code-section-puzzle');
+    const toggleIcon = document.querySelector('.toggle-icon');
+
+    if (codeSection.classList.contains('collapsed')) {
+        codeSection.classList.remove('collapsed');
+        toggleIcon.textContent = '▼';
+    } else {
+        codeSection.classList.add('collapsed');
+        toggleIcon.textContent = '▶';
+    }
+};
 
 // Update Trace Table UI
 // Update Trace Table UI
